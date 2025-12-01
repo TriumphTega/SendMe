@@ -203,6 +203,73 @@ drawer.addEventListener('click', function (e) {
     renderDrawer();
   });
 
+  /* --- Small compatibility hooks for mobile behavior --- */
+/* This updates openDrawer/closeDrawer functions to lock body scroll. 
+   If you replaced the previous enhancement code, these functions will integrate.
+   If not, this code will wire up to elements created by the enhancement. */
+
+(function(){
+  // Wait until DOM elements exist (they should after the enhancement script).
+  function $(sel){ return document.querySelector(sel); }
+
+  const drawer = $('.sendme-drawer');
+  const backdrop = $('.sendme-drawer-backdrop');
+  const cartBtn = $('#sendme-cart-button');
+
+  // If elements not found, bail quietly
+  if(!drawer || !backdrop || !cartBtn) return;
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    backdrop.classList.add('open');
+    document.body.classList.add('sendme-drawer-open');
+    drawer.setAttribute('aria-hidden','false');
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    backdrop.classList.remove('open');
+    document.body.classList.remove('sendme-drawer-open');
+    drawer.setAttribute('aria-hidden','true');
+  }
+
+  // replace existing listeners if present (avoid duplicates)
+  cartBtn.addEventListener('click', openDrawer);
+  backdrop.addEventListener('click', closeDrawer);
+
+  // close on Escape
+  window.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+  });
+
+  // make the drawer swipable down on mobile (small touch handler)
+  let startY = 0, currentY = 0, touching = false;
+  drawer.addEventListener('touchstart', function(e){
+    if(e.touches.length !== 1) return;
+    startY = e.touches[0].clientY;
+    touching = true;
+    drawer.style.transition = 'none';
+  });
+  drawer.addEventListener('touchmove', function(e){
+    if(!touching) return;
+    currentY = e.touches[0].clientY;
+    const delta = Math.max(0, currentY - startY);
+    drawer.style.transform = `translateY(${delta}px)`;
+  });
+  drawer.addEventListener('touchend', function(){
+    touching = false;
+    drawer.style.transition = '';
+    const delta = currentY - startY;
+    if(delta > 120){ // user swiped down far enough -> close
+      closeDrawer();
+      drawer.style.transform = '';
+    } else {
+      drawer.style.transform = ''; // snap back open
+    }
+    startY = currentY = 0;
+  });
+
+})();
+
   // ----- Hook into your existing controls (they exist in your markup) -----
   // The page already has ".items" container and the .add/.increase/.decrease buttons.
   // We'll listen for clicks and update our persistent cart accordingly.

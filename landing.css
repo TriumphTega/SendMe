@@ -237,6 +237,76 @@ body{
 
   .cart-empty { color:#666; padding:14px; text-align:center; font-size:14px; }
 
+  /* --- MOBILE-FRIENDLY DRAWER OVERRIDES --- */
+.sendme-drawer-backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .28s ease;
+  z-index: 99990; /* very high so it overlays other content */
+}
+.sendme-drawer-backdrop.open{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Drawer: anchor bottom:0 and use transform to move it off-screen */
+.sendme-drawer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 92vh;
+  height: auto;
+  background: #fff;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.18);
+  z-index: 99995;             /* above the card, below the cart button */
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform .36s cubic-bezier(.2,.9,.25,1), opacity .28s;
+  transform: translateY(110%); /* off-screen start */
+  opacity: 0;
+  overflow: hidden;
+}
+.sendme-drawer.open {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* On larger screens keep the compact floating drawer style */
+@media (min-width:720px){
+  .sendme-drawer { left:auto; right:24px; bottom:24px; width:420px; border-radius:12px; transform: translateY(110%); }
+  .sendme-drawer.open { transform: translateY(0); }
+}
+
+/* Ensure the floating cart button sits above everything */
+#sendme-cart-button {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 99999; /* above drawer/backdrop */
+  background: #ff6b3d;
+  color: #fff;
+  border: 0;
+  padding: 12px 14px;
+  border-radius: 999px;
+  font-weight:700;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  cursor:pointer;
+}
+
+/* when drawer open, prevent page scroll behind it */
+body.sendme-drawer-open {
+  overflow: hidden !important;
+  touch-action: none; /* helps mobile scrolling quirks */
+}
+
   /* small remove pill */
   .remove-pill { background:transparent; border:0; color:#c00; cursor:pointer; font-size:12px; padding:6px; }
 
