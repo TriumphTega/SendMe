@@ -1,0 +1,263 @@
+body{
+    background-color: darkgreen;
+    align-items: flex-end; /* helps pop-up feel natural from bottom */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 25% 15px 25%;
+    color: yellow;
+}
+
+
+
+ .base-card {
+  display:flex;
+  justify-content: center; /* center the inner .card */
+  border-radius: 40px;
+  padding: 20px;          /* space around the yellow card */
+  background: transparent;
+  position: relative;
+  opacity: 0; /* start hidden for animation */
+}
+
+/* the orange base */
+.base-card::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: 0 auto;
+  max-width: 850px;        /* slightly wider than your .card max-width */
+  height: calc(100%);
+  width: min(850px, 100vw);
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 22px;
+  background: rgb(255, 149, 0);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.12);
+  z-index: 0;
+}
+
+/* keep the existing .card above the base */
+.base-card .card{
+  position: relative;
+  z-index: 2;
+  width: min(750px, 96vw); /* keep your width rules */
+}
+
+.card{
+    background-color: yellow;
+    border-radius: 19px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 750px;
+    width: min(750px, 96vw);
+    margin: auto;;
+    opacity: 0;
+ }
+
+ @keyframes slideUpFromBottom {
+    0% {
+      opacity: 0;
+      transform: translateY(100vh); /* start off-screen below */
+    }
+    60% {
+      transform: translateY(-8px);
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .card {
+    animation: slideUpFromBottom 700ms cubic-bezier(.22,.9,.34,1) forwards;
+  }
+
+  .base-card {
+      animation: slideUpFromBottom 700ms cubic-bezier(.22,.9,.34,1) forwards;
+  }
+
+   .card h2 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+  }
+  .card .subtitle {
+    margin: 0 0 14px 0;
+    color: #333;
+    font-size: 13px;
+  }
+
+  /* Items List*/
+.items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.item {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 10px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.85); /* slightly off-white to contrast yellow */
+    border: 1px solid rgba(0,0,0,0.06);
+}
+
+ .item-left { flex: 1 1 auto; min-width: 0; }
+  .item-title { margin:0 0 6px 0; font-weight:600; font-size:15px; white-space:nowrap; overflow:hidden;text-overflow:ellipsis; }
+  .item-sub { margin:0; font-size:12px; color:#444; }
+
+/* controls on the right: qty + special + add */
+  .controls { display:flex; gap:8px; align-items:center; }
+
+.qty {
+    display:inline-flex;
+    align-items:center;
+    border-radius:8px;
+    overflow:hidden;
+    background:#fff;
+    border:1px solid rgba(0,0,0,0.06);
+  }
+  .qty button {
+    width:34px;
+    height:34px;
+    border:0;
+    background:transparent;
+    cursor:pointer;
+    font-size:18px;
+    font-weight:700;
+  }
+  .qty .value {
+    min-width:34px;
+    text-align:center;
+    font-weight:600;
+  }
+
+  .special {
+    width:200px;
+    max-width:28vw;
+    min-width:120px;
+    padding:8px 10px;
+    border-radius:8px;
+    border:1px solid rgba(0,0,0,0.06);
+    font-size:13px;
+  }
+
+  .add {
+    background:#0b69ff;
+    color:white;
+    border:0;
+    padding:8px 10px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+  }
+
+  /* footer */
+  .card-footer {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:14px;
+    gap:12px;
+  }
+  .summary { color:#222; font-size:14px; }
+
+  /* responsive: hide inline special on tiny screens to avoid wrapping */
+  @media (max-width:480px) {
+    .special { display:none; }
+    .item { padding:8px; }
+  }
+
+   /* Cart drawer + small extra UI (won't change your existing .card) */
+  .sendme-drawer-backdrop{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .28s ease;
+    z-index: 1200;
+  }
+  .sendme-drawer-backdrop.open{
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .sendme-drawer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: -110%;
+    max-height: 92vh;
+    background: #fff;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.18);
+    z-index: 1300;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform .36s cubic-bezier(.2,.9,.25,1);
+    transform: translateY(110%);
+  }
+  .sendme-drawer.open { transform: translateY(0); }
+
+  .drawer-header { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .drawer-title { font-weight:700; font-size:16px; }
+  .drawer-close { border:0; background:transparent; font-size:18px; cursor:pointer; }
+
+  .cart-items { overflow:auto; padding-right:6px; display:grid; gap:10px; max-height:50vh; }
+  /* grid-like compact item card inside drawer (catalog feel) */
+  .drawer-item {
+    display:grid;
+    grid-template-columns: 64px 1fr auto;
+    gap:10px;
+    align-items:center;
+    padding:8px;
+    border-radius:10px;
+    border:1px solid rgba(0,0,0,0.06);
+    background:#fafafa;
+  }
+  .drawer-item img { width:64px; height:64px; object-fit:cover; border-radius:8px; }
+  .drawer-item .meta { min-width:0; }
+  .drawer-item .meta .title { font-weight:600; margin:0; font-size:14px; }
+  .drawer-item .meta .note { margin:0; color:#555; font-size:12px }
+  .drawer-item .price { font-weight:700; margin-left:auto; text-align:right; font-size:14px; }
+
+  .drawer-summary { display:flex; justify-content:space-between; align-items:center; gap:8px; font-weight:700; }
+  .drawer-actions { display:flex; gap:8px; justify-content:flex-end; }
+  .btn-ghost { border:1px solid rgba(0,0,0,0.08); background:transparent; padding:8px 12px; border-radius:8px; cursor:pointer; }
+  .btn-primary { background:#0b69ff; color:#fff; border:0; padding:8px 12px; border-radius:8px; cursor:pointer; }
+
+  .cart-empty { color:#666; padding:14px; text-align:center; font-size:14px; }
+
+  /* small remove pill */
+  .remove-pill { background:transparent; border:0; color:#c00; cursor:pointer; font-size:12px; padding:6px; }
+
+  /* responsive tweaks */
+  @media (min-width:720px){
+    .sendme-drawer { left: auto; right: 24px; bottom: 24px; width: 420px; border-radius: 12px; transform: translateY(110%); }
+    .sendme-drawer.open { transform: translateY(0); }
+  }
+
+  /* small floating cart button */
+  #sendme-cart-button {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1400;
+    background: #ff6b3d;
+    color: #fff;
+    border: 0;
+    padding: 12px 14px;
+    border-radius: 999px;
+    font-weight:700;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    cursor:pointer;
+  }

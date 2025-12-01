@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Me!</title>
+    <link rel="stylesheet" href="landing.css">
+     <style>
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+</style>
+<script src="landing.js" defer></script>
+</head>
+<body>
+
+    <div class="header"> 
+        <h1>Send Me!</h1>
+        <h1>Order Card</h1>
+    </div>
+
+    <div class="base-card">
+        <article class="card" role="region" aria-label="Order Card — Send Me">
+            <h2>Send Me — Build your order</h2>
+            <p2 class="subtitle">Tap + to increase quantity, then add a special request (optional).</p2>
+
+        <div class="items" id="itemsList">
+
+             <!-- Row 1 -->
+            <div class="item" data-id="1">
+                <div class="item-left">
+                    <p class="item-title">Rice</p>
+                    <p class="item-sub">Includes a serving of meat</p>
+                </div>
+
+            <div class="controls">
+                <div class="qty" aria-label="Quantity control">
+                    <button class="decrease" aria-label="Decrease quantity">−</button>
+                    <div class="value" role="status" aria-live="polite">1</div>
+                    <button class="increase" aria-label="Increase quantity">+</button>
+                </div>
+
+                <input class="special" type="text" placeholder="Special Request (eg. Jollof, coleslaw)" aria-label="Special request">
+                <button class="add" type="button">Add</button>
+            </div>
+            </div>
+
+              <!-- Row 2 -->
+      <div class="item" data-id="2">
+        <div class="item-left">
+          <p class="item-title">Drink</p>
+          <p class="item-sub">Coke, Water, etc. </p>
+        </div>
+
+        <div class="controls">
+          <div class="qty" aria-label="Quantity control">
+            <button class="decrease" aria-label="Decrease quantity">−</button>
+            <div class="value" role="status" aria-live="polite">1</div>
+            <button class="increase" aria-label="Increase quantity">+</button>
+          </div>
+
+          <input class="special" type="text" placeholder="Special request" aria-label="Special request">
+          <button class="add" type="button">Add</button>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="item" data-id="3">
+        <div class="item-left">
+          <p class="item-title">Grocery Bag — Essentials</p>
+          <p class="item-sub">Bread, milk, eggs</p>
+        </div>
+
+        <div class="controls">
+          <div class="qty" aria-label="Quantity control">
+            <button class="decrease" aria-label="Decrease quantity">−</button>
+            <div class="value" role="status" aria-live="polite">1</div>
+            <button class="increase" aria-label="Increase quantity">+</button>
+          </div>
+
+          <input class="special" type="text" placeholder="Special request" aria-label="Special request">
+          <button class="add" type="button">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="summary" id="summary">0 items in cart</div>
+      <button class="checkout" id="checkoutBtn" style="background:#0b69ff;color:#fff;border:0;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:700;">Checkout</button>
+    </div>
+
+    </article>
+    </div>
+
+</body>
+</html>
