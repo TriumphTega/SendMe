@@ -446,6 +446,7 @@ if (pageItems) {
     });
   }
 
+
   // Send email (via EmailJS client) — requires you to configure EmailJS and set EMAILJS_ENABLED = true
   document.getElementById('sendme-send-email').addEventListener('click', async function () {
     const toEmail = document.getElementById('sendme-email').value.trim();
