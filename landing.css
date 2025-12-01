@@ -20,6 +20,21 @@ html, body {
     justify-content: space-around;
     align-items: center;
     color: yellow;
+    overflow: hidden;          /* hides content before/after animation */
+     opacity: 0;
+  animation: floatIn 1.4s ease-out forwards;
+}
+
+
+@keyframes floatIn {
+  0% {
+    opacity: 0;
+    transform: translateX(40px);   /* slide in from the right */
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .header1 {
