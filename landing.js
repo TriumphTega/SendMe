@@ -18,8 +18,9 @@
   // Price + image map (edit these values to your real product data)
   const ITEM_DATA = {
     "1": { title: "Rice", price: 1500, img: "https://picsum.photos/seed/chicken/200/200" },
-    "2": { title: "Drink", price: 700, img: "https://picsum.photos/seed/veggie/200/200" },
-    "3": { title: "Grocery Bag — Essentials", price: 5000, img: "https://picsum.photos/seed/groceries/200/200" }
+    "2": { title: "Drink", price: 700, img: "https://picsum.photos/seed/coke/200/200" },
+    "3": { title: "Grocery Bag — Essentials", price: 5000, img: "https://picsum.photos/seed/groceries/200/200" },
+    "4": { title: "Spaghetti Dish", price: 1500, img: "https://picsum.photos/seed/pasta/200/200" }
   };
 
   // EmailJS config placeholders - replace to enable client-side email send
